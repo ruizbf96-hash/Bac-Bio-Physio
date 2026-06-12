@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Révisions Bac ST2S</title>
+<style>
+:root{--bg:#0e1620;--panel:#15212e;--ink:#e8eef3;--ink-soft:#9fb2c2;--line:#2a3d50}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--ink);font-family:"Inter","Segoe UI",system-ui,sans-serif;
+  min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.wrap{max-width:560px;width:100%;text-align:center}
+.eyebrow{color:#5ad1c8;letter-spacing:.18em;text-transform:uppercase;font-size:.72rem;margin-bottom:14px}
+h1{font-family:Georgia,serif;font-size:2.2rem;line-height:1.25;margin-bottom:10px}
+.sub{color:var(--ink-soft);font-size:.95rem;margin-bottom:40px;line-height:1.6}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:500px){.cards{grid-template-columns:1fr}}
+.card{display:flex;flex-direction:column;align-items:center;gap:14px;
+  background:var(--panel);border:1px solid var(--line);border-radius:16px;
+  padding:36px 24px;text-decoration:none;color:var(--ink);transition:.2s}
+.card:hover{border-color:var(--accent);transform:translateY(-3px);
+  box-shadow:0 12px 32px rgba(0,0,0,.35)}
+.card .icon{font-size:2.4rem}
+.card h2{font-family:Georgia,serif;font-size:1.25rem;margin:0}
+.card p{color:var(--ink-soft);font-size:.82rem;line-height:1.5}
+.card.bph{--accent:#5ad1c8}.card.bph:hover{border-color:#5ad1c8}
+.card.stss{--accent:#b58cff}.card.stss:hover{border-color:#b58cff}
+.tag{display:inline-block;font-size:.65rem;font-weight:700;letter-spacing:.06em;
+  text-transform:uppercase;padding:3px 10px;border-radius:6px;margin-top:6px}
+.card.bph .tag{background:#5ad1c8;color:#06201d}
+.card.stss .tag{background:#b58cff;color:#150a26}
+footer{margin-top:48px;color:var(--ink-soft);font-size:.72rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">Bac ST2S · Fiches interactives</div>
+  <h1>Révisions</h1>
+  <p class="sub">Deux matières, 22 chapitres, des schémas cliquables, des quiz scorés et des flashcards. Choisis ta matière.</p>
+
+  <div class="cards">
+    <a href="bph.html" class="card bph">
+      <div class="icon">🧬</div>
+      <h2>Bio-Physiologie</h2>
+      <p>14 thèmes · corps humain, homéostasie, cellule, cœur, rein, diabète, reproduction…</p>
+      <span class="tag">BPH</span>
+    </a>
+    <a href="stss.html" class="card stss">
+      <div class="icon">🏥</div>
+      <h2>Santé-Social</h2>
+      <p>8 modules · santé OMS, déterminants, Sécu, système de soins, politiques, méthodo…</p>
+      <span class="tag">STSS</span>
+    </a>
+  </div>
+
+  <footer>Données vérifiées : INSEE 2025, securite-sociale.fr, OMS. Outil de révision, pas un document officiel.</footer>
+</div>
+</body>
+</html>
