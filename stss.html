@@ -189,6 +189,9 @@ tr:nth-child(even) td{background:rgba(255,255,255,.02)}
 .lp-d{color:var(--ink);line-height:1.55}
 /* hotspot styling */
 [data-t]{cursor:pointer;transition:all .15s}
+svg [data-t]{pointer-events:all;cursor:pointer}
+svg [data-t] *{pointer-events:all}
+svg [data-t]:hover{opacity:.8;filter:brightness(1.2)}
 [data-t]:hover{opacity:.85}
 .hotspot{fill:transparent;stroke:transparent}
 .hotspot:hover{fill:rgba(255,255,255,.06)}
@@ -301,50 +304,74 @@ tr:nth-child(even) td{background:rgba(255,255,255,.02)}
 /* ====== MOTEUR INTERACTIF PARTAGÉ (BPH + STSS) ====== */
 
 /* ---------- 1. SCHÉMAS CLIQUABLES ---------- */
-function hs(el){
-  const fig = el.closest('.fig');
-  const panel = fig.querySelector('.legend-panel');
-  fig.querySelectorAll('[data-t]').forEach(h=>h.classList.remove('hot-active'));
-  el.classList.add('hot-active');
-  panel.innerHTML = '<div class="lp-t">'+el.getAttribute('data-t')+'</div>'+
-                    '<div class="lp-d">'+el.getAttribute('data-d')+'</div>';
+/* Trouve le <g data-t> parent le plus proche, même en SVG */
+function findHotspot(el){
+  var node = el;
+  while(node && node !== document){
+    if(node.getAttribute && node.getAttribute('data-t')) return node;
+    node = node.parentNode || node.parentElement;
+  }
+  return null;
+}
+/* Trouve le .fig.clickable ancêtre (traverse la frontière SVG→HTML) */
+function findFig(el){
+  var node = el;
+  while(node && node !== document){
+    if(node.classList && node.classList.contains('fig') && node.classList.contains('clickable')) return node;
+    node = node.parentNode || node.parentElement;
+  }
+  return null;
+}
+function hs(hotspot, fig){
+  var panel = fig.querySelector('.legend-panel');
+  /* reset tous les hotspots de cette figure */
+  var all = fig.querySelectorAll('[data-t]');
+  for(var i=0;i<all.length;i++) all[i].classList.remove('hot-active');
+  hotspot.classList.add('hot-active');
+  panel.innerHTML = '<div class="lp-t">'+hotspot.getAttribute('data-t')+'</div>'+
+                    '<div class="lp-d">'+hotspot.getAttribute('data-d')+'</div>';
   panel.classList.add('show');
 }
 
 /* ---------- 2. QUIZ SCORÉS ---------- */
 function quizPick(opt){
-  const q = opt.closest('.q');
-  if(q.dataset.done) return;
+  var q = opt.closest('.q');
+  if(!q || q.dataset.done) return;
   q.dataset.done = "1";
-  const ok = opt.dataset.ok === "1";
+  var ok = opt.getAttribute('data-ok') === "1";
   q.dataset.correct = ok ? "1" : "0";
   opt.classList.add(ok ? 'opt-ok' : 'opt-no');
   if(!ok){
-    const good = q.querySelector('.opt[data-ok="1"]');
+    var good = q.querySelector('.opt[data-ok="1"]');
     if(good) good.classList.add('opt-ok');
   }
-  const exp = q.querySelector('.q-exp');
+  var exp = q.querySelector('.q-exp');
   if(exp) exp.classList.add('show');
-  q.querySelectorAll('.opt').forEach(o=>o.classList.add('locked'));
-  updateQuiz(q.closest('[data-quiz]'));
+  var opts = q.querySelectorAll('.opt');
+  for(var i=0;i<opts.length;i++) opts[i].classList.add('locked');
+  /* score */
+  var quiz = q.closest('[data-quiz]');
+  if(quiz) updateQuiz(quiz);
 }
 function updateQuiz(quiz){
   if(!quiz) return;
-  const qs = [...quiz.querySelectorAll('.q')];
-  const done = qs.filter(q=>q.dataset.done);
-  const good = qs.filter(q=>q.dataset.correct==="1");
-  const bar = quiz.querySelector('.quiz-bar-fill');
-  const lbl = quiz.querySelector('.quiz-score');
-  if(bar) bar.style.width = Math.round(done.length/qs.length*100)+'%';
-  if(lbl) lbl.textContent = done.length+'/'+qs.length;
-  if(done.length===qs.length){
-    const res = quiz.querySelector('.quiz-result');
+  var qs = quiz.querySelectorAll('.q');
+  var done=0, good=0;
+  for(var i=0;i<qs.length;i++){
+    if(qs[i].dataset.done) done++;
+    if(qs[i].dataset.correct==="1") good++;
+  }
+  var bar = quiz.querySelector('.quiz-bar-fill');
+  var lbl = quiz.querySelector('.quiz-score');
+  if(bar) bar.style.width = Math.round(done/qs.length*100)+'%';
+  if(lbl) lbl.textContent = done+'/'+qs.length;
+  if(done===qs.length){
+    var res = quiz.querySelector('.quiz-result');
     if(res){
-      const n=good.length, tot=qs.length;
-      let msg = n===tot ? "Parfait, tu maîtrises ce thème."
-              : n>=Math.ceil(tot*0.6) ? "Bien joué — revois les points ratés."
+      var msg = good===qs.length ? "Parfait, tu maîtrises ce thème."
+              : good>=Math.ceil(qs.length*0.6) ? "Bien joué — revois les points ratés."
               : "À retravailler : relis la fiche puis réessaie.";
-      res.innerHTML = '<span class="qr-score">'+n+' / '+tot+'</span> '+msg;
+      res.innerHTML = '<span class="qr-score">'+good+' / '+qs.length+'</span> '+msg;
       res.classList.add('show');
     }
   }
@@ -355,54 +382,67 @@ function flip(card){ card.classList.toggle('flipped'); }
 
 /* ---------- 4. PROGRESSION ---------- */
 function buildProgress(){
-  const secs = [...document.querySelectorAll('section')];
+  var secs = document.querySelectorAll('section');
   window._done = window._done || {};
-  secs.forEach(s=>{
-    const head = s.querySelector('.sec-head');
+  for(var i=0;i<secs.length;i++){(function(s){
+    var head = s.querySelector('.sec-head');
     if(!head || head.querySelector('.done-btn')) return;
-    const b = document.createElement('button');
+    var b = document.createElement('button');
     b.className='done-btn'; b.innerHTML='○';
     b.title='Marquer comme révisé';
-    b.onclick=()=>{
+    b.onclick=function(){
       window._done[s.id] = !window._done[s.id];
       b.innerHTML = window._done[s.id] ? '●' : '○';
-      b.classList.toggle('on', window._done[s.id]);
-      const nl = document.querySelector('.nav a[href="#'+s.id+'"]');
-      if(nl) nl.classList.toggle('nav-done', window._done[s.id]);
+      if(window._done[s.id]) b.classList.add('on'); else b.classList.remove('on');
+      var nl = document.querySelector('.nav a[href="#'+s.id+'"]');
+      if(nl){ if(window._done[s.id]) nl.classList.add('nav-done'); else nl.classList.remove('nav-done'); }
       refreshGlobalBar();
     };
     head.appendChild(b);
-  });
+  })(secs[i]);}
   if(!document.getElementById('globalBar')){
-    const gb=document.createElement('div');gb.id='globalBar';
+    var gb=document.createElement('div');gb.id='globalBar';
     gb.innerHTML='<span id="gbTxt">0 / '+secs.length+'</span>'+
       '<div class="gb-track"><div class="gb-fill" id="gbFill"></div></div>';
     document.body.appendChild(gb);
   }
 }
 function refreshGlobalBar(){
-  const secs=[...document.querySelectorAll('section')];
-  const n=secs.filter(s=>window._done[s.id]).length;
-  const f=document.getElementById('gbFill'), t=document.getElementById('gbTxt');
+  var secs=document.querySelectorAll('section');
+  var n=0;
+  for(var i=0;i<secs.length;i++) if(window._done[secs[i].id]) n++;
+  var f=document.getElementById('gbFill'), t=document.getElementById('gbTxt');
   if(f) f.style.width=Math.round(n/secs.length*100)+'%';
   if(t) t.textContent=n+' / '+secs.length;
 }
 
+/* ---------- 5. DÉLÉGATION GLOBALE (une seule fois) ---------- */
+document.addEventListener('click', function(e){
+  var target = e.target;
+
+  /* --- Hotspot SVG --- */
+  var hot = findHotspot(target);
+  if(hot){
+    var fig = findFig(hot);
+    if(fig){ hs(hot, fig); return; }
+  }
+
+  /* --- Quiz option --- */
+  if(target.classList && target.classList.contains('opt')){
+    quizPick(target);
+    return;
+  }
+
+});
+
 /* ---------- init ---------- */
 function initInteractive(){
   buildProgress();
-  /* quiz options */
-  document.querySelectorAll('.q .opt').forEach(o=>{
-    o.addEventListener('click',()=>quizPick(o));
-  });
-  /* schémas cliquables : hotspots SVG */
-  document.querySelectorAll('.fig.clickable [data-t]').forEach(el=>{
-    el.style.cursor='pointer';
-    el.addEventListener('click',function(e){
-      e.stopPropagation();
-      hs(this);
-    });
-  });
+  /* pointer-events sur les hotspots SVG */
+  var hots = document.querySelectorAll('[data-t]');
+  for(var i=0;i<hots.length;i++){
+    hots[i].setAttribute('style','cursor:pointer;pointer-events:all;');
+  }
 }
 
 
