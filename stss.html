@@ -391,8 +391,17 @@ function refreshGlobalBar(){
 /* ---------- init ---------- */
 function initInteractive(){
   buildProgress();
+  /* quiz options */
   document.querySelectorAll('.q .opt').forEach(o=>{
     o.addEventListener('click',()=>quizPick(o));
+  });
+  /* schémas cliquables : hotspots SVG */
+  document.querySelectorAll('.fig.clickable [data-t]').forEach(el=>{
+    el.style.cursor='pointer';
+    el.addEventListener('click',function(e){
+      e.stopPropagation();
+      hs(this);
+    });
   });
 }
 
