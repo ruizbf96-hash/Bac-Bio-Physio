@@ -167,7 +167,7 @@ tr:nth-child(even) td{background:rgba(255,255,255,.02)}
   width:46px;height:46px;border-radius:50%;font-size:1.2rem;cursor:pointer;opacity:0;transition:.3s;box-shadow:0 6px 18px rgba(0,0,0,.4)}
 .toTop.show{opacity:1}
 
-/* ===== INTERACTIVE v3 ===== */
+/* INTERACTIVE v3 */
 /* ====== STYLES DES COMPOSANTS INTERACTIFS ====== */
 
 /* --- schéma cliquable : layout fig + panneau légende --- */
@@ -295,7 +295,7 @@ svg [data-t]:hover{opacity:.8;filter:brightness(1.2)}
 
 <script>
 
-/* ===== engine.js ===== */
+/* engine.js */
 /* ====== MOTEUR INTERACTIF PARTAGÉ (BPH + STSS) ====== */
 
 /* ---------- 1. SCHÉMAS CLIQUABLES ---------- */
@@ -441,7 +441,7 @@ function initInteractive(){
 }
 
 
-/* ===== bph-1.js ===== */
+/* bph-1.js */
 /* ====== BPH APPROFONDI — Bloc 1 : thèmes 1-4 ====== */
 const B1 = `
 
@@ -551,102 +551,211 @@ const B1 = `
 `;
 
 
-/* ===== bph-2.js ===== */
+/* bph-2.js */
 /* ====== BPH APPROFONDI — Bloc 2 : thèmes 2-3 (cellule, milieu) ====== */
 const B2 = `
 
 <!-- ====== 2. CELLULE ====== -->
 <section id="cellule" data-title="La cellule">
-  <div class="sec-head"><span class="n">02</span><h2>La cellule & le métabolisme</h2></div>
-  <p class="lead">L'unité structurale et fonctionnelle du vivant, et le siège de la production d'énergie.</p>
+  <div class="sec-head"><span class="n">02</span><h2>La cellule : structure et fonctionnement</h2></div>
+  <p class="lead">L'unité de base du vivant : une organisation millimétrée où chaque structure (organite) assure une fonction précise, comme les ateliers spécialisés d'une usine.</p>
 
-  <p class="accroche">Une cellule de 10 à 30 µm contient des structures spécialisées qui produisent l'énergie de tout ton corps. Comment est-elle organisée, et où naît l'ATP ?</p>
+  <p class="accroche">Une cellule mesure entre 10 et 30 millièmes de millimètre, et pourtant elle respire, fabrique, trie, recycle, communique et se reproduit. Comment toutes ces tâches sont-elles réparties à l'intérieur ?</p>
 
-  <p>La <span class="term">cellule eucaryote</span> animale possède un noyau délimité par une enveloppe nucléaire, un <span class="term">cytoplasme</span> contenant le <span class="trad">cytosol</span> et des <span class="term">organites</span> membranaires, le tout entouré d'une <span class="term">membrane plasmique</span> à structure de mosaïque fluide (bicouche de phospholipides + protéines).</p>
+  <p>Le corps humain compte des milliers de milliards de cellules. Toutes sont des <span class="term">cellules eucaryotes</span> <span class="trad">(qui possèdent un vrai noyau, contrairement aux bactéries)</span>. Quelle que soit sa spécialité, une cellule s'organise toujours en <strong>trois grands ensembles</strong> : une <span class="term2">membrane plasmique</span> qui la délimite, un <span class="term2">cytoplasme</span> qui remplit son volume, et un <span class="term2">noyau</span> qui la dirige. Le cytoplasme contient le <span class="term">cytosol</span> <span class="trad">(liquide gélatineux)</span> et de nombreux <span class="term">organites</span> <span class="trad">(petits organes spécialisés)</span>.</p>
+
+  <p>Survole et clique chaque structure du schéma ci-dessous pour son rôle ; le fonctionnement complet est détaillé juste après.</p>
 
   <div class="fig clickable">
     <div class="svg-wrap">
-    <svg viewBox="0 0 560 320" xmlns="http://www.w3.org/2000/svg" font-family="Inter,sans-serif">
-      <g data-t="Membrane plasmique" data-d="Bicouche de phospholipides (tête hydrophile, queue hydrophobe) parsemée de protéines. Semi-perméable : règle les échanges (diffusion, transport actif, osmose). Épaisseur ≈ 7,5 nm.">
-        <ellipse cx="280" cy="160" rx="248" ry="138" fill="#16323a" stroke="#5ad1c8" stroke-width="3"/>
+    <svg viewBox="0 0 640 460" xmlns="http://www.w3.org/2000/svg" font-family="Inter,sans-serif">
+      <defs>
+        <radialGradient id="cytoG" cx="50%" cy="45%" r="65%">
+          <stop offset="0%" stop-color="#1c3340"/><stop offset="100%" stop-color="#152734"/>
+        </radialGradient>
+        <linearGradient id="nucG" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#2c4a63"/><stop offset="100%" stop-color="#22384a"/>
+        </linearGradient>
+      </defs>
+
+      <g data-t="Membrane plasmique" data-d="Frontière de la cellule. Bicouche de phospholipides + protéines (« mosaïque fluide »). Semi-perméable : elle trie ce qui entre et sort et porte des récepteurs pour communiquer.">
+        <path d="M40,230 C40,110 160,40 320,40 C480,40 600,110 600,230 C600,350 480,420 320,420 C160,420 40,350 40,230 Z"
+              fill="url(#cytoG)" stroke="#5ad1c8" stroke-width="5"/>
+        <path d="M40,230 C40,110 160,40 320,40 C480,40 600,110 600,230 C600,350 480,420 320,420 C160,420 40,350 40,230 Z"
+              fill="none" stroke="#7fe3da" stroke-width="1.5" stroke-dasharray="2 5" opacity=".6"/>
       </g>
-      <g data-t="Cytoplasme" data-d="Milieu intracellulaire = cytosol (eau, ions, enzymes) + organites. Siège de nombreuses réactions du métabolisme (ex : glycolyse dans le cytosol).">
-        <rect class="hotspot" x="60" y="60" width="120" height="40"/>
-        <text x="105" y="80" fill="#9fb2c2" font-size="11">cytoplasme</text>
+      <text x="320" y="28" fill="#5ad1c8" font-size="12" text-anchor="middle" font-weight="bold">MEMBRANE PLASMIQUE</text>
+
+      <g data-t="Cytoplasme & cytosol" data-d="Tout le volume entre la membrane et le noyau. Le cytosol (eau, ions, enzymes) baigne les organites. Siège de nombreuses réactions chimiques de la cellule.">
+        <text x="105" y="150" fill="#9fb2c2" font-size="12" font-style="italic">cytoplasme</text>
       </g>
-      <g data-t="Noyau" data-d="Contient l'ADN organisé en chromatine/chromosomes. Délimité par l'enveloppe nucléaire percée de pores. Le nucléole y fabrique les ribosomes. C'est le centre de commande : transcription de l'ADN en ARN.">
-        <circle cx="240" cy="160" r="60" fill="#22384a" stroke="#7aa8ff" stroke-width="2.5"/>
-        <circle cx="240" cy="160" r="20" fill="#2c4a63" stroke="#7aa8ff"/>
-        <text x="240" y="164" fill="#7aa8ff" font-size="10" text-anchor="middle">noyau</text>
+
+      <g data-t="Noyau" data-d="Centre de commande. Contient l'ADN (information génétique). Entouré d'une enveloppe percée de pores qui filtrent les échanges avec le cytoplasme. Pilote toute l'activité cellulaire.">
+        <ellipse cx="250" cy="225" rx="92" ry="80" fill="url(#nucG)" stroke="#7aa8ff" stroke-width="3"/>
+        <circle cx="250" cy="145" r="3" fill="#0e1620"/><circle cx="320" cy="180" r="3" fill="#0e1620"/>
+        <circle cx="340" cy="240" r="3" fill="#0e1620"/><circle cx="300" cy="295" r="3" fill="#0e1620"/>
+        <circle cx="180" cy="285" r="3" fill="#0e1620"/><circle cx="162" cy="210" r="3" fill="#0e1620"/>
+        <circle cx="195" cy="155" r="3" fill="#0e1620"/>
+        <path d="M215,195 q15,-12 30,4 q14,14 32,2" stroke="#a9c5ff" stroke-width="2.5" fill="none" opacity=".7"/>
+        <path d="M210,250 q18,12 36,-2 q16,-12 30,6" stroke="#a9c5ff" stroke-width="2.5" fill="none" opacity=".7"/>
+        <text x="250" y="200" fill="#cfe0ff" font-size="12" text-anchor="middle" font-weight="bold">NOYAU</text>
       </g>
-      <g data-t="Mitochondrie" data-d="Centrale énergétique. Double membrane, la membrane interne forme des crêtes. Siège de la respiration cellulaire (cycle de Krebs + chaîne respiratoire) qui produit l'ATP. C'est ici qu'O₂ est consommé et CO₂ produit.">
-        <ellipse cx="410" cy="115" rx="44" ry="23" fill="#3a2a1c" stroke="#ff8a5b" stroke-width="2"/>
-        <path d="M373,115 q11,-13 22,0 q11,13 22,0" stroke="#ff8a5b" fill="none"/>
-        <text x="410" y="155" fill="#ff8a5b" font-size="10" text-anchor="middle">mitochondrie</text>
+      <g data-t="Nucléole" data-d="Petite zone dense dans le noyau. C'est l'atelier qui fabrique les ribosomes avant qu'ils ne gagnent le cytoplasme.">
+        <circle cx="262" cy="248" r="20" fill="#3a5a7d" stroke="#7aa8ff" stroke-width="1.5"/>
+        <text x="262" y="252" fill="#cfe0ff" font-size="8" text-anchor="middle">nucléole</text>
       </g>
-      <g data-t="Réticulum endoplasmique + ribosomes" data-d="Réseau de membranes. RE granuleux (couvert de ribosomes) = synthèse des protéines ; RE lisse = synthèse des lipides. Les ribosomes traduisent l'ARN messager en protéines.">
-        <path d="M150,215 q32,16 64,0 q32,-16 64,0" stroke="#6ee7a0" stroke-width="2" fill="none"/>
-        <text x="210" y="245" fill="#6ee7a0" font-size="10" text-anchor="middle">réticulum + ribosomes</text>
+
+      <g data-t="Mitochondrie" data-d="La centrale énergétique. Sa membrane interne est repliée en crêtes pour augmenter la surface de travail. Elle libère l'énergie des nutriments et la stocke sous forme d'ATP, le carburant de la cellule.">
+        <ellipse cx="470" cy="135" rx="62" ry="34" fill="#3a2a1c" stroke="#ff8a5b" stroke-width="3"/>
+        <path d="M420,135 q12,-20 25,0 q12,20 25,0 q12,-20 25,0 q12,20 24,0" stroke="#ffb38a" stroke-width="2.5" fill="none"/>
+        <text x="470" y="139" fill="#ffd0b3" font-size="11" text-anchor="middle" font-weight="bold">mitochondrie</text>
       </g>
-      <g data-t="Appareil de Golgi" data-d="Empilement de saccules. Modifie, trie et adresse les protéines venant du RE, puis les expédie en vésicules (sécrétion).">
-        <path d="M420,210 q20,-6 40,0 M418,222 q22,-6 44,0 M420,234 q20,-6 40,0" stroke="#ffd166" stroke-width="2" fill="none"/>
-        <text x="440" y="255" fill="#ffd166" font-size="10" text-anchor="middle">Golgi</text>
+
+      <g data-t="Réticulum endoplasmique granuleux" data-d="Réseau de membranes couvert de ribosomes (aspect « granuleux »). Il fabrique les protéines destinées à l'export ou aux membranes, puis les envoie vers le Golgi.">
+        <path d="M150,330 q40,-22 80,0 q40,22 80,0" stroke="#6ee7a0" stroke-width="3.5" fill="none"/>
+        <path d="M150,345 q40,-22 80,0 q40,22 80,0" stroke="#6ee7a0" stroke-width="3.5" fill="none"/>
+        <g fill="#b6f5d0"><circle cx="160" cy="326" r="2.5"/><circle cx="195" cy="318" r="2.5"/><circle cx="230" cy="322" r="2.5"/><circle cx="265" cy="318" r="2.5"/><circle cx="300" cy="326" r="2.5"/></g>
+        <text x="230" y="372" fill="#9ff0c0" font-size="10" text-anchor="middle">RE granuleux</text>
+      </g>
+
+      <g data-t="Réticulum endoplasmique lisse" data-d="Même réseau de membranes, mais sans ribosomes. Il fabrique les lipides, stocke le calcium et participe à la détoxification (foie).">
+        <path d="M360,355 q30,-18 60,0 q30,18 58,0" stroke="#56c6e8" stroke-width="3.5" fill="none"/>
+        <text x="415" y="382" fill="#8fdcf2" font-size="10" text-anchor="middle">RE lisse</text>
+      </g>
+
+      <g data-t="Appareil de Golgi" data-d="Pile de sacs aplatis. C'est le centre de tri et d'expédition : il modifie, emballe et adresse les protéines reçues du RE, puis les libère dans des vésicules.">
+        <path d="M430,250 q34,-9 68,0" stroke="#ffd166" stroke-width="3.5" fill="none"/>
+        <path d="M426,264 q38,-9 76,0" stroke="#ffd166" stroke-width="3.5" fill="none"/>
+        <path d="M430,278 q34,-9 68,0" stroke="#ffd166" stroke-width="3.5" fill="none"/>
+        <path d="M436,292 q30,-9 60,0" stroke="#ffd166" stroke-width="3.5" fill="none"/>
+        <circle cx="515" cy="300" r="5" fill="none" stroke="#ffd166" stroke-width="1.5"/>
+        <circle cx="530" cy="285" r="4" fill="none" stroke="#ffd166" stroke-width="1.5"/>
+        <text x="463" y="318" fill="#ffe49c" font-size="10" text-anchor="middle">appareil de Golgi</text>
+      </g>
+
+      <g data-t="Ribosomes" data-d="Minuscules grains, libres dans le cytoplasme ou fixés sur le RE. Ce sont les machines qui assemblent les protéines en lisant les instructions venues du noyau.">
+        <circle cx="180" cy="120" r="4" fill="#b6f5d0"/><circle cx="195" cy="128" r="4" fill="#b6f5d0"/><circle cx="168" cy="132" r="4" fill="#b6f5d0"/>
+        <text x="150" y="108" fill="#9ff0c0" font-size="10">ribosomes libres</text>
+      </g>
+
+      <g data-t="Lysosome" data-d="Petite poche remplie d'enzymes digestives. C'est la « benne de recyclage » : il détruit les déchets, les organites usés et les particules ingérées.">
+        <circle cx="380" cy="150" r="22" fill="#3a1c33" stroke="#ff7aa8" stroke-width="2.5"/>
+        <g fill="#ff9ec2"><circle cx="374" cy="146" r="2.5"/><circle cx="386" cy="150" r="2.5"/><circle cx="378" cy="156" r="2.5"/></g>
+        <text x="380" y="185" fill="#ffb3d0" font-size="10" text-anchor="middle">lysosome</text>
+      </g>
+
+      <g data-t="Centrosome" data-d="Composé de deux centrioles. Il organise le squelette interne et, au moment de la division cellulaire, dirige la répartition des chromosomes entre les deux cellules filles.">
+        <g transform="translate(150,250)">
+          <rect x="-4" y="-12" width="8" height="24" rx="2" fill="#c9a9ff" stroke="#b58cff"/>
+          <rect x="8" y="-8" width="8" height="20" rx="2" fill="#c9a9ff" stroke="#b58cff" transform="rotate(60 12 0)"/>
+        </g>
+        <text x="150" y="290" fill="#cdb6ff" font-size="10" text-anchor="middle">centrosome</text>
+      </g>
+
+      <g data-t="Cytosquelette" data-d="Réseau de filaments dans le cytoplasme. Il donne sa forme à la cellule, la soutient, permet ses mouvements et fait circuler les organites à l'intérieur.">
+        <path d="M470,200 L520,250 M495,185 L545,225 M450,215 L500,275" stroke="#7e8da0" stroke-width="1.5" opacity=".55"/>
+        <text x="540" y="200" fill="#9fb2c2" font-size="10">cytosquelette</text>
       </g>
     </svg>
-    <div class="hint">Clique sur chaque organite pour son rôle détaillé</div>
+    <div class="hint">Clique chaque structure pour son rôle</div>
     </div>
     <div class="legend-panel"></div>
   </div>
 
+  <p>Reprenons chaque structure et son <strong>fonctionnement</strong>, regroupées par grande fonction.</p>
+
   <div class="zoom">
-    <span class="tag">Point clé — la respiration cellulaire</span>
-    <h4>L'équation à connaître</h4>
-    <p>Dans la mitochondrie, l'oxydation complète du glucose libère l'énergie stockée sous forme d'<span class="term">ATP</span> :</p>
-    <p style="text-align:center;font-family:Georgia,serif;font-size:1.05rem;color:var(--accent)">C₆H₁₂O₆ + 6 O₂ → 6 CO₂ + 6 H₂O + énergie (ATP)</p>
-    <p>Une molécule de glucose fournit jusqu'à ~36–38 ATP. En l'absence d'O₂, la cellule recourt à la <span class="term2">fermentation</span> (glycolyse seule, dans le cytosol), bien moins rentable (2 ATP) et productrice d'acide lactique — d'où les crampes lors d'un effort intense.</p>
+    <span class="tag">La frontière — membrane plasmique</span>
+    <h4>Délimiter et contrôler les échanges</h4>
+    <p>La membrane est une <span class="term">bicouche de phospholipides</span> : chaque phospholipide a une tête qui « aime l'eau » (hydrophile) tournée vers l'extérieur et l'intérieur de la cellule, et deux queues qui « fuient l'eau » (hydrophobes) cachées au centre. Des <strong>protéines</strong> y sont enchâssées et peuvent s'y déplacer : on parle de <span class="term2">mosaïque fluide</span>.</p>
+    <p>Elle est <strong>semi-perméable</strong> : elle laisse passer librement certaines petites molécules (eau, gaz) par <span class="term2">diffusion</span>, mais contrôle le passage des autres. Certaines entrent « sans effort » dans le sens de leur concentration (transport passif) ; d'autres sont pompées contre leur gradient, ce qui <strong>consomme de l'énergie</strong> (transport actif). Enfin, les protéines de membrane servent de <strong>récepteurs</strong> : elles reçoivent les messages (hormones, neurotransmetteurs) et permettent à la cellule de communiquer.</p>
+  </div>
+
+  <div class="zoom">
+    <span class="tag">Le centre de commande — noyau & nucléole</span>
+    <h4>Diriger grâce à l'information génétique</h4>
+    <p>Le <span class="term">noyau</span> contient l'<span class="term2">ADN</span>, support de l'information génétique. Hors division, l'ADN est déroulé en fins filaments (la chromatine) ; au moment de se diviser, il se condense en <strong>chromosomes</strong> bien visibles. Le noyau est entouré d'une <span class="term2">enveloppe nucléaire</span> à double membrane, percée de <strong>pores</strong> qui filtrent finement les entrées et sorties.</p>
+    <p>Son fonctionnement : le noyau ne fabrique pas les protéines lui-même, mais il en détient le <strong>plan</strong>. Il en copie des extraits sous forme d'un messager (l'ARN messager) qui sort par les pores vers le cytoplasme, où il sera lu par les ribosomes. Le <span class="term">nucléole</span>, zone dense à l'intérieur du noyau, est l'atelier qui fabrique les ribosomes.</p>
+  </div>
+
+  <div class="zoom">
+    <span class="tag">La centrale d'énergie — mitochondrie</span>
+    <h4>Libérer l'énergie des nutriments</h4>
+    <p>La <span class="term">mitochondrie</span> possède une double membrane : la membrane interne est repliée en <span class="term2">crêtes</span> qui multiplient la surface de travail. C'est là que se déroule la <span class="term2">respiration cellulaire</span>.</p>
+    <p>Le principe, en mots : la cellule récupère un nutriment riche en énergie, le <strong>glucose</strong>, et l'« oxyde » progressivement en utilisant le <strong>dioxygène</strong> (O₂) apporté par le sang. Cette dégradation libère l'énergie chimique contenue dans le glucose. Cette énergie n'est pas perdue : elle est <strong>stockée</strong> dans une molécule rechargeable, l'<span class="term">ATP</span>, qui sert ensuite de « carburant » à toutes les activités de la cellule (contraction, transport actif, fabrication). En consommant le glucose et l'O₂, la respiration rejette des <strong>déchets</strong> : du dioxyde de carbone (CO₂) et de l'eau. La respiration est très <strong>rentable</strong> en énergie ; c'est pourquoi les cellules très actives (muscle, cœur) sont bourrées de mitochondries.</p>
+    <p>Quand le dioxygène vient à manquer (effort intense), la cellule bascule sur un mode de secours, la <span class="term2">fermentation</span>, qui produit beaucoup moins d'énergie et fabrique de l'acide lactique — d'où la sensation de brûlure et les crampes musculaires.</p>
+  </div>
+
+  <div class="zoom">
+    <span class="tag">La chaîne de fabrication — ribosomes, RE & Golgi</span>
+    <h4>Fabriquer, emballer, expédier, recycler</h4>
+    <p>La cellule fonctionne comme une chaîne de production coordonnée :</p>
+    <p><strong>1. Les ribosomes</strong> assemblent les protéines en lisant l'ARN messager venu du noyau. Libres dans le cytoplasme, ils fabriquent les protéines utilisées sur place ; fixés sur le réticulum, ils fabriquent celles destinées à l'export.</p>
+    <p><strong>2. Le réticulum endoplasmique granuleux</strong> (couvert de ribosomes) reçoit ces protéines, leur donne leur forme et les achemine. Le <strong>réticulum lisse</strong> (sans ribosomes) fabrique de son côté les lipides, stocke le calcium et neutralise certaines substances toxiques (rôle important dans les cellules du foie).</p>
+    <p><strong>3. L'appareil de Golgi</strong> reçoit les protéines du réticulum, les <span class="term2">modifie</span>, les trie et les <strong>emballe dans des vésicules</strong> qu'il adresse vers la bonne destination — y compris vers l'extérieur (sécrétion).</p>
+    <p><strong>4. Les lysosomes</strong>, remplis d'enzymes digestives, assurent le <span class="term2">recyclage</span> : ils détruisent les déchets, les organites usés et les particules absorbées par la cellule.</p>
+  </div>
+
+  <div class="zoom">
+    <span class="tag">Le soutien et la division — cytosquelette & centrosome</span>
+    <h4>Tenir, déplacer, se reproduire</h4>
+    <p>Le <span class="term">cytosquelette</span> est un réseau de filaments qui traverse le cytoplasme. Il donne sa <strong>forme</strong> à la cellule, la maintient, permet ses <strong>mouvements</strong> et sert de « rails » pour faire circuler les organites et les vésicules à l'intérieur.</p>
+    <p>Le <span class="term">centrosome</span>, formé de deux centrioles, organise ce réseau. Son rôle devient crucial lors de la <span class="term2">division cellulaire</span> : il met en place les fibres qui tirent et répartissent équitablement les chromosomes entre les deux cellules filles.</p>
   </div>
 
   <div class="flash-deck">
     <div class="flash" onclick="flip(this)"><div class="flash-inner">
+      <div class="flash-face flash-front"><span class="flash-q">flashcard</span>Les 3 grands ensembles d'une cellule ?</div>
+      <div class="flash-face flash-back">Membrane plasmique (frontière) + cytoplasme (volume + organites) + noyau (commande).</div></div></div>
+    <div class="flash" onclick="flip(this)"><div class="flash-inner">
       <div class="flash-face flash-front"><span class="flash-q">flashcard</span>Rôle de la mitochondrie ?</div>
-      <div class="flash-face flash-back">Respiration cellulaire → production d'ATP. Consomme O₂ + glucose, rejette CO₂ + H₂O.</div></div></div>
+      <div class="flash-face flash-back">Respiration cellulaire : elle libère l'énergie du glucose (avec l'O₂) et la stocke en ATP, le carburant de la cellule.</div></div></div>
     <div class="flash" onclick="flip(this)"><div class="flash-inner">
-      <div class="flash-face flash-front"><span class="flash-q">flashcard</span>Que contient le noyau ?</div>
-      <div class="flash-face flash-back">L'ADN (chromatine/chromosomes), le plan génétique. Délimité par l'enveloppe nucléaire à pores.</div></div></div>
+      <div class="flash-face flash-front"><span class="flash-q">flashcard</span>Qui fabrique les protéines ?</div>
+      <div class="flash-face flash-back">Les ribosomes, en lisant l'ARN messager venu du noyau. Le RE puis le Golgi les traitent et les expédient.</div></div></div>
     <div class="flash" onclick="flip(this)"><div class="flash-inner">
-      <div class="flash-face flash-front"><span class="flash-q">flashcard</span>Structure de la membrane ?</div>
-      <div class="flash-face flash-back">Mosaïque fluide : bicouche de phospholipides + protéines. Semi-perméable.</div></div></div>
+      <div class="flash-face flash-front"><span class="flash-q">flashcard</span>RE granuleux vs RE lisse ?</div>
+      <div class="flash-face flash-back">Granuleux = couvert de ribosomes, fabrique des protéines. Lisse = sans ribosomes, fabrique des lipides + détoxifie.</div></div></div>
     <div class="flash" onclick="flip(this)"><div class="flash-inner">
-      <div class="flash-face flash-front"><span class="flash-q">flashcard</span>Sans oxygène, la cellule fait… ?</div>
-      <div class="flash-face flash-back">La fermentation (2 ATP, dans le cytosol) → acide lactique. Bien moins rentable que la respiration (~36 ATP).</div></div></div>
+      <div class="flash-face flash-front"><span class="flash-q">flashcard</span>Rôle du lysosome ?</div>
+      <div class="flash-face flash-back">Recyclage : ses enzymes digèrent déchets, organites usés et particules absorbées.</div></div></div>
+    <div class="flash" onclick="flip(this)"><div class="flash-inner">
+      <div class="flash-face flash-front"><span class="flash-q">flashcard</span>Pourquoi la membrane est « semi-perméable » ?</div>
+      <div class="flash-face flash-back">Elle laisse passer librement certaines molécules (eau, gaz) mais contrôle le reste, par transport passif ou actif.</div></div></div>
   </div>
 
   <div class="quiz" data-quiz>
-    <div class="quiz-head"><h4>Quiz — La cellule</h4><span class="quiz-score">0/3</span></div>
+    <div class="quiz-head"><h4>Quiz — La cellule</h4><span class="quiz-score">0/4</span></div>
     <div class="quiz-bar"><div class="quiz-bar-fill"></div></div>
-    <div class="q"><div class="q-txt"><span class="qn">1.</span>Où se déroule la production majeure d'ATP ?</div>
+    <div class="q"><div class="q-txt"><span class="qn">1.</span>Où la cellule libère-t-elle l'énergie des nutriments ?</div>
       <button class="opt">Dans le noyau</button>
       <button class="opt" data-ok="1">Dans la mitochondrie</button>
-      <button class="opt">Dans la membrane</button>
-      <div class="q-exp"><b>Explication :</b> la respiration cellulaire (cycle de Krebs + chaîne respiratoire) a lieu dans la mitochondrie.</div>
+      <button class="opt">Dans l'appareil de Golgi</button>
+      <div class="q-exp"><b>Explication :</b> la respiration cellulaire a lieu dans la mitochondrie, qui stocke l'énergie sous forme d'ATP.</div>
     </div>
-    <div class="q"><div class="q-txt"><span class="qn">2.</span>Que produit la respiration cellulaire à partir du glucose et de l'O₂ ?</div>
-      <button class="opt" data-ok="1">CO₂ + H₂O + ATP</button>
-      <button class="opt">O₂ + glucose</button>
-      <button class="opt">Protéines</button>
-      <div class="q-exp"><b>Explication :</b> C₆H₁₂O₆ + 6 O₂ → 6 CO₂ + 6 H₂O + ATP.</div>
+    <div class="q"><div class="q-txt"><span class="qn">2.</span>Le noyau dirige la cellule parce qu'il contient :</div>
+      <button class="opt" data-ok="1">l'ADN (l'information génétique)</button>
+      <button class="opt">les mitochondries</button>
+      <button class="opt">les lysosomes</button>
+      <div class="q-exp"><b>Explication :</b> l'ADN est le plan ; le noyau en envoie des copies (ARN messager) vers les ribosomes.</div>
     </div>
-    <div class="q"><div class="q-txt"><span class="qn">3.</span>La synthèse des protéines est assurée par :</div>
-      <button class="opt">Les mitochondries</button>
-      <button class="opt" data-ok="1">Les ribosomes (RE granuleux)</button>
-      <button class="opt">L'appareil de Golgi seul</button>
-      <div class="q-exp"><b>Explication :</b> les ribosomes traduisent l'ARNm en protéines ; le Golgi ne fait que les trier/adresser ensuite.</div>
+    <div class="q"><div class="q-txt"><span class="qn">3.</span>Quel organite trie et emballe les protéines avant de les expédier ?</div>
+      <button class="opt">Le ribosome</button>
+      <button class="opt" data-ok="1">L'appareil de Golgi</button>
+      <button class="opt">La mitochondrie</button>
+      <div class="q-exp"><b>Explication :</b> le Golgi modifie, trie et emballe les protéines reçues du réticulum dans des vésicules.</div>
+    </div>
+    <div class="q"><div class="q-txt"><span class="qn">4.</span>Que fait la cellule quand le dioxygène manque ?</div>
+      <button class="opt">Elle arrête tout</button>
+      <button class="opt" data-ok="1">Elle bascule sur la fermentation (moins d'énergie, acide lactique)</button>
+      <button class="opt">Elle fabrique plus de noyaux</button>
+      <div class="q-exp"><b>Explication :</b> sans O₂, la cellule produit de l'énergie par fermentation, peu rentable et productrice d'acide lactique (crampes).</div>
     </div>
     <div class="quiz-result"></div>
   </div>
 
   <div class="memo"><span class="tag">À retenir</span>
-    <p>Cellule eucaryote = membrane (mosaïque fluide) + cytoplasme + noyau (ADN) + organites. Mitochondrie = ATP par respiration (glucose + O₂ → CO₂ + H₂O + ATP, ~36 ATP). Sans O₂ : fermentation (2 ATP, acide lactique). Ribosomes/RE = protéines ; Golgi = tri et sécrétion.</p>
+    <p>Cellule = membrane plasmique (frontière semi-perméable) + cytoplasme (cytosol + organites) + noyau (ADN, commande). Mitochondrie = énergie (respiration → ATP ; fermentation si manque d'O₂). Chaîne protéines : ribosomes (fabrication) → RE granuleux → Golgi (tri/expédition) ; RE lisse = lipides + détoxification ; lysosome = recyclage. Cytosquelette = forme + mouvements ; centrosome = division. Le nucléole fabrique les ribosomes.</p>
   </div>
 </section>
 
@@ -736,7 +845,7 @@ const B2 = `
 `;
 
 
-/* ===== bph-3.js ===== */
+/* bph-3.js */
 /* ====== BPH APPROFONDI — Bloc 3 : thèmes 4-5 (échanges gazeux, respiratoire) ====== */
 const B3 = `
 
@@ -902,7 +1011,7 @@ const B3 = `
 `;
 
 
-/* ===== bph-4.js ===== */
+/* bph-4.js */
 /* ====== BPH APPROFONDI — Bloc 4 : thèmes 6-7 (cœur, rein) ====== */
 const B4 = `
 
@@ -1111,7 +1220,7 @@ const B4 = `
 `;
 
 
-/* ===== bph-5.js ===== */
+/* bph-5.js */
 /* ====== BPH APPROFONDI — Bloc 5 : thèmes 8-10 (digestion, diabète, cancer) ====== */
 const B5 = `
 
@@ -1351,7 +1460,7 @@ const B5 = `
 `;
 
 
-/* ===== bph-6.js ===== */
+/* bph-6.js */
 /* ====== BPH APPROFONDI — Bloc 6 : thèmes 11-14 ====== */
 const B6 = `
 
